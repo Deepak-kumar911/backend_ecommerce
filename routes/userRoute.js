@@ -11,7 +11,8 @@ router.post('/auth/register',validate.registerValidator,resultValidate,userContr
 router.post('/auth/login',validate.loginValidator,resultValidate,userController.login);
 router.get('/products',userController.getAllProducts);
 router.get('/products/:id',userController.getProductById);
-router.get('/carts/:userId',userAuth,userController.getUserCartDetails);
-router.get('/carts/:cartId',userAuth,userController.createOrUpdateUserCart);
+router.get('/carts/user/:userId',userAuth,userController.getUserCartDetails);
+router.put('/carts/:cartId',userAuth,userController.createOrUpdateUserCart);
+router.delete('/cart-product/:cartProductId', userController.deleteCartProductAndUpdateCart);
 
 module.exports = router;
