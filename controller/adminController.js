@@ -152,3 +152,32 @@ exports.uploadFile = async (req, res) => {
   }
 }
 
+
+async function fetchAndInsertProducts() {
+  try {
+    const response = await fetch('https://fakestoreapi.com/products');
+    const products = await response.json();
+
+    const bulkOps = products.map(product => ({
+      insertOne: {
+        document: {
+          title: product.title,
+          price: product.price,
+          description: product.description,
+          category: product.category,
+          image: product.image,
+          stock: product.rating.count
+        }
+      }
+    }));
+
+    
+    // const result = await Product.bulkWrite(bulkOps);
+
+    console.log(`Inserted ${result.insertedCount} products into MongoDB.`);
+  } catch (error) {
+    console.error('Error inserting products:', error.message);
+  }
+}
+
+// fetchAndInsertProducts()

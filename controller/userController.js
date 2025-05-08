@@ -49,7 +49,7 @@ exports.login = async (req,res) => {
 
 exports.getAllProducts = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = parseInt(req.query.limit) || 100;
     const search = req.query.search || "";
   
     const query = {
