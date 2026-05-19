@@ -14,5 +14,6 @@ router.get('/products/:id',userController.getProductById);
 router.get('/carts/user/:userId',userAuth,userController.getUserCartDetails);
 router.put('/carts/:cartId',userAuth,userController.createOrUpdateUserCart);
 router.delete('/cart-product/:cartProductId', userController.deleteCartProductAndUpdateCart);
+router.get("/",userController.checkHealth)
 
 module.exports = router;

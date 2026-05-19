@@ -229,3 +229,13 @@ exports.deleteCartProductAndUpdateCart = async (req, res) => {
     res.status(500).json({ status: 0, message: 'Server error', error: err.message });
   }
 };
+
+
+exports.checkHealth = async (req,res) => {
+    try {
+        return res.status(200).json({ status: 1, message: 'Backend is working will!' });
+    } catch (err) {
+      console.log(err);
+        return res.status(500).json({ status: 0, message: 'Something went wrong', err });
+    }
+}
