@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const Admin = require('../model/admin');
 const Product = require("../model/product")
 const multer = require('multer');
-const { bucket } = require('../config/firebaseAdmin');
+// const { bucket } = require('../config/firebaseAdmin');
 
 // Register
 exports.register = async (req,res) => {
@@ -122,35 +122,35 @@ exports.getAllProducts = async (req, res) => {
     }
   };
   
-exports.uploadFile = async (req, res) => {
-  try {
-    if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
+// exports.uploadFile = async (req, res) => {
+//   try {
+//     if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
 
-    const file = bucket.file(`products/${Date.now()}_${req.file.originalname}`);
-    const stream = file.createWriteStream({
-      metadata: {
-        contentType: req.file.mimetype,
-      },
-    });
+//     const file = bucket.file(`products/${Date.now()}_${req.file.originalname}`);
+//     const stream = file.createWriteStream({
+//       metadata: {
+//         contentType: req.file.mimetype,
+//       },
+//     });
 
-    stream.on('error', (err) => {
-      console.error(err);
-      return res.status(500).json({ message: 'Upload failed' });
-    });
+//     stream.on('error', (err) => {
+//       console.error(err);
+//       return res.status(500).json({ message: 'Upload failed' });
+//     });
 
-    stream.on('finish', async () => {
-      // Make the file publicly accessible
-      await file.makePublic();
-      const publicUrl = `https://storage.googleapis.com/${bucket.name}/${file.name}`;
-      res.status(200).json({ url: publicUrl,message:"Upload successfully" });
-    });
+//     stream.on('finish', async () => {
+//       // Make the file publicly accessible
+//       await file.makePublic();
+//       const publicUrl = `https://storage.googleapis.com/${bucket.name}/${file.name}`;
+//       res.status(200).json({ url: publicUrl,message:"Upload successfully" });
+//     });
 
-    stream.end(req.file.buffer);
-  } catch (error) {
-    console.error('Upload Error:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-}
+//     stream.end(req.file.buffer);
+//   } catch (error) {
+//     console.error('Upload Error:', error);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// }
 
 
 async function fetchAndInsertProducts() {
@@ -172,7 +172,7 @@ async function fetchAndInsertProducts() {
     }));
 
     
-    // const result = await Product.bulkWrite(bulkOps);
+    const result = await Product.bulkWrite(bulkOps);
 
     console.log(`Inserted ${result.insertedCount} products into MongoDB.`);
   } catch (error) {

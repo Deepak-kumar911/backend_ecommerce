@@ -15,6 +15,6 @@ router.get('/getAllProducts',adminAuth, adminController.getAllProducts);
 router.get('/getProductById',adminAuth, adminController.getProductById);
 router.delete('/deleteProduct',adminAuth, adminController.deleteProduct);
 router.post('/addOrCreateProduct',adminAuth, adminController.addOrCreateProduct);
-router.post('/upload-image', adminAuth, upload.single('image'), adminController.uploadFile);
+// router.post('/upload-image', adminAuth, upload.single('image'), adminController.uploadFile);
 
 module.exports = router;
